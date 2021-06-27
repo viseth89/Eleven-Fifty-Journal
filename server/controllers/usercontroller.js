@@ -1,7 +1,6 @@
 const router = require("express").Router();
 const { UserModel } = require("../models");
-const { UniqueConstraintError } = require("sequelize/lib/errors")
-
+const { UniqueConstraintError } = require("sequelize/lib/errors");
 
 router.post("/register", async (req, res) => {
   let { email, password } = req.body.user;
@@ -28,31 +27,32 @@ router.post("/register", async (req, res) => {
   }
 });
 
-router.post('/login', async (req,res) => {
-    let {email, password } = req.body.user;
+router.post("/login", async (req, res) => {
+  let { email, password } = req.body.user;
 
-    try {
-        // why line 36 do we need the const loginuser
-        const loginUser = await UserModel.findOne({
-            where: {
-                email: email,
-            },
-        })
+  try {
+    // why line 36 do we need the const loginuser
+    const loginUser = await UserModel.findOne({
+      where: {
+        email: email,
+      },
+    });
 
-        console.log('login')
-
-        res.status(200).json({
-            user:loginUser,
-            message: "This is a message"
-        })
-
-
-    } catch (err) {
-        res.status(500).json({
-            message:"Unable to login"
-        })
+    if (loginUser) {
+      res.status(200).json({
+        user: loginUser,
+        message: "This is a message",
+      });
+    } else {
+      res.status(401).json({
+        message: "Login Failed",
+      });
     }
-
-})
+  } catch (err) {
+    res.status(500).json({
+      message: "Unable to login",
+    });
+  }
+});
 
 module.exports = router;
