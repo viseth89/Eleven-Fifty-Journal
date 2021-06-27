@@ -4,7 +4,7 @@ const dbConnection = require('./db')
 const controllers = require('./controllers');
 
 dbConnection.authenticate()
-    .then(()=> dbConnectionsync())
+    .then(()=> dbConnection.sync())
     .then(() => {
         app.listen(3000, () => {
             console.log(`[Server]: App is listening on 3000.`)
