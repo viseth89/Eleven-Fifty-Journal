@@ -3,9 +3,10 @@ const { UserModel } = require('../models');
 
 router.post("/register",  (req, res) => {
 
+    let {email, password } = req.body.user;
     UserModel.create({
-        email: "user@email.com",
-        password: "password"
+        email,
+        password
     })
 })
 
