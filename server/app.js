@@ -19,9 +19,9 @@ dbConnection.authenticate()
 
 
 
-app.listen(3000, () => {
-    console.log(`[Server]: App is listening on 3000.`)
-})
+// app.listen(3000, () => {
+//     console.log(`[Server]: App is listening on 3000.`)
+// })
 
 
 /* 
