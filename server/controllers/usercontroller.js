@@ -28,4 +28,31 @@ router.post("/register", async (req, res) => {
   }
 });
 
+router.post('/login', async (req,res) => {
+    let {email, password } = req.body.user;
+
+    try {
+        // why line 36 do we need the const loginuser
+        const loginUser = await UserModel.findOne({
+            where: {
+                email: email,
+            },
+        })
+
+        console.log('login')
+
+        res.status(200).json({
+            user:loginUser,
+            message: "This is a message"
+        })
+
+
+    } catch (err) {
+        res.status(500).json({
+            message:"Unable to login"
+        })
+    }
+
+})
+
 module.exports = router;
