@@ -6,8 +6,10 @@ const dbConnection = require('./db')
 const controllers = require('./controllers');
 
 app.use(Express.json())
-app.use("/journal", controllers.journalController)
 app.use('/user', controllers.userController);
+
+// app.use(require("./middleware/validatte-jwtt"));
+app.use("/journal", controllers.journalController)
 
 dbConnection.authenticate()
     .then(()=> dbConnection.sync())
