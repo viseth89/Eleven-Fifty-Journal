@@ -16,6 +16,23 @@ function postJournal() {
         }
     }
 
+    fetch(`http://localhost:3000/journal/create`, {
+        method: "POST",
+        headers: new Headers({
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${accessToken}`
+        }),
+        body: JSON.stringify(newEntry)
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data)
+        displayMine()
+    })
+    .catch(err => {
+        console.error(err)
+    })
+
 }
     
     
