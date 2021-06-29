@@ -20,7 +20,7 @@ router.post("/create", validateJWT, async(req, res) => {
         title,
         date,
         entry,
-        id
+        owner: id
     }
     try {
         const newJournal = await JournalModel.create(journalEntry);
