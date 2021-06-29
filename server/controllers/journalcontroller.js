@@ -64,7 +64,7 @@ router.get("/mine", validateJWT, async(req, res) => {
 Get Journals by Title
  */
 
-router.get("/ttittle", async (req, res) => {
+router.get("/:title", async (req, res) => {
     const {title} = req.params;
     try {
         const results = await JournalModel.findAll({
