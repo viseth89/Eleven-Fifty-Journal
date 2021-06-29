@@ -75,4 +75,57 @@ router.get("/ttittle", async (req, res) => {
         res.status(500).json({ error: err})
     }
 })
+
+/* 
+Update A Journal
+ */
+
+router.put("/update/:entryID", validateJWT, async (req, res) => {
+    const {title, date, entry} = req.body.journal;
+    const journalId = req.params.entryID;
+    const userId = req.user.id;
+
+    const query = {
+        where: {
+            id: journalId,
+            owner: userId
+        }
+    };
+
+    const updatedJournal = {
+        title: title,
+        date: date,
+        entry: entry
+    };
+    
+    try {
+        const update = await JournalModel.update(updatedJournal, query);
+        res.status(200).json(update);
+    } catch (err) {
+        res.status(500).json({ error: err})
+    }
+})
+
+/* 
+Delete a Journal
+*/
+
+router.delete("/delete/:id", validateJWT, async (req,res) => {
+    const ownerId = req.user.id;
+    const journalId = req.params.id;
+
+    try {
+        const query = {
+            where: {
+                id: journalId,
+                owner: ownerId
+            }
+        };
+
+        await JournalModel.destroy(query);
+        res.status(200).json({message: "Journal Entry Removed"})
+    } catch(err) {
+        res.status(500).json({ error: err})
+    }
+})
 module.exports = router
