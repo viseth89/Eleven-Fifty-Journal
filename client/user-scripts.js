@@ -77,6 +77,9 @@ function userLogin() {
  ************************** */
 function userLogout() {
   console.log("userLogout Function Called");
+  localStorage.setItem('sessionToken', undefined);
+  console.log(`sessionToken --> ${localStorage.sessionToken}`);
+  tokenChecker();
 }
 
 /* *************************

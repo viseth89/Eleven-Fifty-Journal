@@ -3,7 +3,20 @@
 ************************** */
 function postJournal() {
      console.log('postJournal Function Called')
+    const accessToken = localStorage.getItem('sessionToken')
+    let title = document.getElementById('title').value;
+    let date = document.getElementByid('date').value;
+    let entry = document.getElementById('entry').value
+    
+    let newEntry = {
+        journal: {
+            title: title,
+            date: date,
+            entry: entry
+        }
     }
+
+}
     
     
     /* *************************
