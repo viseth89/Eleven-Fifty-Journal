@@ -10,8 +10,8 @@ function userSignUp() {
   let newUserData = {
     user: {
       email: userEmail,
-      password: userPass,
-    },
+      password: userPass
+    }
   };
   console.log(
     `newUserData --> ${newUserData.user.email} ${newUserData.user.password}`
@@ -24,8 +24,8 @@ function userSignUp() {
     },
     body: JSON.stringify(newUserData),
   })
-    .then((response) => response.json())
-    .then((data) => {
+    .then(response => response.json())
+    .then(data => {
       console.log(data);
       let token = data.sessionToken;
       localStorage.setItem("sessionToken", token);
