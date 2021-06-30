@@ -51,6 +51,32 @@ function editJournal(postId) {
     input.setAttribute("id", "updatedEntry");
     input.setAttribute("placeholder", "Edit your journal entry");
   } else {
+    let updated = document.getElementById("updatedEntry").value;
+    let newEntry = {
+      journal: {
+        entry: updated,
+      },
+    };
+
+    fetch(fetch_url, {
+      method: "PUT",
+      headers: new Headers({
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      }),
+      body: JSON.stringify(newEntry),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        displayMine();
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+
+    card.removeChild(card.lastChild);
+
   }
 }
 
@@ -59,4 +85,24 @@ function editJournal(postId) {
  ************************** */
 function deleteJournal(postId) {
   console.log("deleteJournal Function Called");
+  console.log(postId);
+
+  const fetch_url = `http://localhost:3000/journal/delete/${postId}`;
+  const accessToken = localStorage.getItem('SessionToken')
+
+  fetch(fetch_url, {
+    method: "DELETE",
+    headers: new Headers({
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${accessToken}`
+    })
+  })
+  .then(response=> response.json())
+  .then(data => {
+    console.log(data);
+    displayMine();
+  })
+  .catch(err => {
+    console.error(err)
+  })
 }
